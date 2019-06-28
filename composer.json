@@ -1,9 +1,9 @@
 {
-    "name": "laravel-admin-ext/fusionpay",
+    "name": "dm-laravel-admin-ext/fusionpay",
     "description": "description...",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
-    "homepage": "https://github.com/laravel-admin-ext/fusionpay",
+    "homepage": "https://github.com/sessionliang/laravel-admin-ext-fusionpay",
     "license": "MIT",
     "authors": [
         {
