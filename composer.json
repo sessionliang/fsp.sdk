@@ -1,0 +1,40 @@
+{
+    "name": "laravel-admin-ext/fusionpay",
+    "description": "description...",
+    "type": "library",
+    "keywords": ["laravel-admin", "extension"],
+    "homepage": "https://github.com/laravel-admin-ext/fusionpay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sessionliang",
+            "email": "sessionliang@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "encore/laravel-admin": "~1.6",
+        "guzzlehttp/guzzle": "^6.2",
+        "monolog/monolog": "^1.22",
+        "pimple/pimple": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FusionPay\\": "src/"
+        },
+        "files": [
+            "src/Kernel/Support/Helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FusionPay\\FusionPayServiceProvider"
+            ]
+
+        }
+    }
+}
