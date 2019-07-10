@@ -57,6 +57,7 @@ class BaseClient
     protected function request(string $endpoint, array $params = [], $method = 'post', array $options = [], $returnResponse = false)
     {
         $base = [
+            'partner_id' => $this->app['config']['partner_id'],
             'client_id' => $this->app['config']['client_id'],
         ];
 

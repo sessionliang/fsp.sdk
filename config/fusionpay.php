@@ -42,6 +42,7 @@ return [
     'payment' => [
         'default' => [
             'sandbox'            => env('FUSIONPAY_PAYMENT_SANDBOX', false),
+            'partner_id'         => env('FUSIONPAY_PAYMENT_PARTNER_ID', ''),
             'client_id'          => env('FUSIONPAY_PAYMENT_CLIENT_ID', ''),
             'key'                => env('FUSIONPAY_PAYMENT_KEY', 'key-for-signature'),
             'cert_path'          => env('FUSIONPAY_PAYMENT_CERT_PATH', 'path/to/cert/apiclient_cert.pem'),    // XXX: 绝对路径！！！！
