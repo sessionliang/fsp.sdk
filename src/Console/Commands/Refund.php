@@ -4,6 +4,9 @@ namespace FusionPay\Console\Commands;
 
 use Illuminate\Console\Command;
 use FusionPay\Facade as FusionPay;
+use FusionPay\Factory as FPFactory;
+use App\Models\CompanyInfo;
+use App\Models\Payment;
 
 class Refund extends Command
 {
@@ -53,12 +56,40 @@ class Refund extends Command
     }
 
     public function refund($out_trade_no, $amount){
-        $app = FusionPay::payment();
-        return $app->refund->byOutTradeNumber($out_trade_no, $amount);
+        try{
+            $payment = Payment::where('out_trade_no', $out_trade_no)->first();
+            $company_info = CompanyInfo::where('company_uuid', $payment->company_uuid)->first();
+            // $app = FusionPay::payment();
+            $app = FPFactory::make('payment', array_merge(config('fusionpay.payment.default'),[
+                'client_id' => $company_info->client_id,
+            ]));
+            $app->refund->byOutTradeNumber($out_trade_no, $amount);
+        }
+        catch(\GuzzleHttp\Exception\RequestException $e){
+            $res = json_decode($e->getResponse()->getBody()->getContents());
+            admin_error('Error', 'Refund Error. '.$res->message);
+        }
+        catch(\Exception $e){
+            admin_error('Error', 'Refund Error. '.$e->getMessage());
+        }
     }
 
     public function query($out_trade_no){
-        $app = FusionPay::payment();
-        return $app->transaction->query($out_trade_no);
+        try{
+            $payment = Payment::where('out_trade_no', $out_trade_no)->first();
+            $company_info = CompanyInfo::where('company_uuid', $payment->company_uuid)->first();
+            // $app = FusionPay::payment();
+            $app = FPFactory::make('payment', array_merge(config('fusionpay.payment.default'),[
+                'client_id' => $company_info->client_id,
+            ]));
+            return $app->transaction->query($out_trade_no);
+        }
+        catch(\GuzzleHttp\Exception\RequestException $e){
+            $res = json_decode($e->getResponse()->getBody()->getContents());
+            admin_error('Error', 'Refund Error. '.$res->message);
+        }
+        catch(\Exception $e){
+            admin_error('Error', 'Refund Error. '.$e->getMessage());
+        }
     }
 }
