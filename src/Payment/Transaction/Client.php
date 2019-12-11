@@ -24,4 +24,26 @@ class Client extends BaseClient
 
         return $this->requestRaw($this->wrap('/api/v2/query'), $params, 'get');
     }
+
+
+    /**
+     * Download settlement.
+     *
+     * @param string $settlement_date
+     * @param string $gateway_config_code
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\FusionnPay\Kernel\Support\Collection|array|object|string
+     *
+     * @throws \FusionnPay\Kernel\Exceptions\InvalidConfigException
+     */
+    public function downloadSettlement(string $settlement_date, string $gateway_config_code)
+    {
+        $params = [
+            'client_id' => $this->app['config']->client_id,
+            'settlement_date' => $settlement_date,
+            'gateway_config_code' => $gateway_config_code
+        ];
+
+        return $this->requestRaw($this->wrap('/api/v2/download-settlement'), $params, 'get');
+    }
 }
